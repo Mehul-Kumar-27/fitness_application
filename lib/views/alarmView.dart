@@ -7,7 +7,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 import 'package:velocity_x/velocity_x.dart';
 
 import '../auth/bloc/auth_bloc.dart';
@@ -15,6 +14,7 @@ import '../auth/bloc/auth_event.dart';
 import '../global/global.dart';
 import 'BMI/bmi_calculator.dart';
 import 'Goals/to_do_list.dart';
+import 'lab_test_information/lab_test_list/lab_test.dart';
 import 'social/social_page.dart';
 import 'yoga/yoga_tutorials.dart';
 
@@ -181,8 +181,10 @@ class _AlarmViewState extends State<AlarmView> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (contex) => const MySocial()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (contex) => const MySocial()));
                       },
                       child: statwidget(
                           "Social",
@@ -206,8 +208,8 @@ class _AlarmViewState extends State<AlarmView> {
                                 builder: (context) => const Yoga()));
                       },
                       child: statwidget(
-                        "Yoga Tutorials",
-                        Colors.amberAccent[400]!,
+                        "Yoga",
+                        Colors.pinkAccent[200]!,
                         const Icon(
                           Icons.sports_martial_arts,
                           color: Colors.black,
@@ -215,9 +217,34 @@ class _AlarmViewState extends State<AlarmView> {
                         ),
                       ),
                     ),
-                  
                   ],
                 ).p12(),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LabTest()));
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(40)),
+                        gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          colors: [Colors.white, Colors.black38],
+                        )),
+                    child: Center(
+                        child: "Lab Test Information"
+                            .text
+                            .textStyle(GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold))
+                            .make()),
+                  ).px12(),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -237,7 +264,8 @@ class _AlarmViewState extends State<AlarmView> {
 
   Widget statwidget(String label, Color colorOFWidget, Icon icon) {
     return Material(
-      elevation: 10,
+      elevation: 15,
+      shadowColor: Colors.black,
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Container(
         height: 150,
@@ -245,6 +273,8 @@ class _AlarmViewState extends State<AlarmView> {
         decoration: BoxDecoration(
             color: colorOFWidget, borderRadius: BorderRadius.circular(20)),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
               height: 20,
@@ -253,9 +283,15 @@ class _AlarmViewState extends State<AlarmView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [icon],
             ).p12(),
-            label.text
-                .textStyle(GoogleFonts.poppins(fontWeight: FontWeight.bold))
-                .make(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                label.text
+                    .textStyle(GoogleFonts.poppins(fontWeight: FontWeight.bold))
+                    .overflow(TextOverflow.clip)
+                    .make(),
+              ],
+            ),
           ],
         ),
       ),
