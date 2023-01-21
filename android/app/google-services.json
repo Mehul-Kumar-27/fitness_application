@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "362019442885",
+    "project_id": "health-pro-2",
+    "storage_bucket": "health-pro-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362019442885:android:b00a70ebbe6925f03660ac",
+        "android_client_info": {
+          "package_name": "com.example.fitness_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362019442885-j6b48o9jcvsfuhav6e60ttoh0s8297uf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj6ufkkp_KikY5S-OM7nQ2r1EgR7_ZzsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362019442885-j6b48o9jcvsfuhav6e60ttoh0s8297uf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
