@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'dart:ui';
 
 import 'package:fitness_application/views/gym/gym_list.dart';
@@ -7,7 +8,10 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pedometer/pedometer.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
@@ -28,6 +32,70 @@ class AlarmView extends StatefulWidget {
 }
 
 class _AlarmViewState extends State<AlarmView> {
+  String today = DateFormat.yMMMMd("en_US").format(DateTime.now());
+
+  late Stream<StepCount> _stepCountStream;
+  late Stream<PedestrianStatus> _pedestrianStatusStream;
+  String _status = '?', _steps = '?';
+
+  askPermission() async {
+    PermissionStatus activity = await Permission.activityRecognition.request();
+    if (activity == PermissionStatus.granted) {
+      initPlatformState();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please grat permission")));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    askPermission();
+  }
+
+  void onStepCount(StepCount event) {
+    print(event);
+    setState(() {
+      _steps = event.steps.toString();
+    });
+  }
+
+  void onPedestrianStatusChanged(PedestrianStatus event) {
+    print(event);
+    setState(() {
+      _status = event.status;
+    });
+  }
+
+  void onPedestrianStatusError(error) {
+    print('onPedestrianStatusError: $error');
+    setState(() {
+      _status = 'Pedestrian Status not available';
+    });
+    print(_status);
+  }
+
+  void onStepCountError(error) {
+    print('onStepCountError: $error');
+    setState(() {
+      _steps = 'Step Count not available';
+    });
+  }
+
+  void initPlatformState() {
+    _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
+    _pedestrianStatusStream
+        .listen(onPedestrianStatusChanged)
+        .onError(onPedestrianStatusError);
+
+    _stepCountStream = Pedometer.stepCountStream;
+    _stepCountStream.listen(onStepCount).onError(onStepCountError);
+
+    if (!mounted) return;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +122,15 @@ class _AlarmViewState extends State<AlarmView> {
                                   const AuthEventLogOut(),
                                 );
                           },
-                          icon: const Icon(Icons.logout))
+                          icon: const Icon(Icons.logout)),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      today.text
+                          .textStyle(GoogleFonts.poppins(
+                              fontSize: 20, color: Colors.black))
+                          .bold
+                          .make(),
                     ],
                   ),
                 ),
@@ -79,7 +155,7 @@ class _AlarmViewState extends State<AlarmView> {
                           children: [
                             CircularWidget(
                                 label: "Steps Taken",
-                                data: "400",
+                                data: _steps,
                                 icon:
                                     "assets/animations/walking-shapes-animation.json"),
                           ],
@@ -95,12 +171,12 @@ class _AlarmViewState extends State<AlarmView> {
                             ),
                             CircularWidget(
                               label: "Calories Burned",
-                              data: "400",
+                              data: "210",
                               icon: "assets/animations/fire.json",
                             ).px4(),
                             CircularWidget(
                               label: "Distence walked",
-                              data: "400",
+                              data: "1.29 Km",
                               icon: "assets/animations/distance.json",
                             ).px4(),
                             const SizedBox(
@@ -330,6 +406,12 @@ class _CircularWidgetState extends State<CircularWidget> {
           ]),
         ),
         widget.label.text
+            .textStyle(GoogleFonts.poppins(
+                fontSize: 15,
+                color: Colors.grey[400],
+                fontWeight: FontWeight.bold))
+            .make(),
+        widget.data.text
             .textStyle(GoogleFonts.poppins(
                 fontSize: 15,
                 color: Colors.grey[400],
