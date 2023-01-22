@@ -76,18 +76,19 @@ class _LoginViewState extends State<LoginView> {
                       height: screenHeight(42),
                     ),
                     Text(
-                      "Let's Login",
+                      "Hey Fitness Enthusiast !",
                       style: GoogleFonts.poppins(
                         fontSize: screenWidth(22.24),
                         fontWeight: FontWeight.w600,
                         color: AppColors.mainColor,
                       ),
+                      overflow: TextOverflow.clip,
                     ),
                     SizedBox(
                       height: screenHeight(6.94),
                     ),
                     Text(
-                      "And never miss your medicines",
+                      "Let's login",
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w400,
                         fontSize: screenWidth(11.8),

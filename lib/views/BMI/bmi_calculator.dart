@@ -55,30 +55,44 @@ class _HealthCheckUpState extends State<HealthCheckUp> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.blueAccent[100],
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          centerTitle: true,
+          title: "What is BMI ?"
+              .text
+              .textStyle(GoogleFonts.poppins(
+                fontSize: 30,
+              ))
+              .color(Colors.black)
+              .make(),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Colors.deepPurpleAccent[100]!, Colors.blueAccent[200]!],
+            )),
+          ),
+        ),
         body: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                "What is BMI ?"
-                    .text
-                    .textStyle(GoogleFonts.poppins(
-                      fontSize: 30,
-                    ))
-                    .semiBold
-                    .color(Colors.black)
-                    .make(),
-              ],
-            ).p12(),
+            const SizedBox(
+              height: 20,
+            ),
             Flexible(
-              child:
-                  '''Body Mass Index (BMI) is a person’s weight in kilograms (or pounds) divided by the square of height in meters (or feet). A high BMI can indicate high body fatness. BMI screens for weight categories that may lead to health problems, but it does not diagnose the body fatness or health of an individual.'''
-                      .text
-                      .overflow(TextOverflow.clip)
-                      .textStyle(GoogleFonts.openSans(fontSize: 17))
-                      .make()
-                      .p12(),
+              child: Material(
+                elevation: 5,
+                child:
+                    '''Body Mass Index (BMI) is a person’s weight in kilograms (or pounds) divided by the square of height in meters (or feet). A high BMI can indicate high body fatness. BMI screens for weight categories that may lead to health problems, but it does not diagnose the body fatness or health of an individual.'''
+                        .text
+                        .overflow(TextOverflow.clip)
+                        .textStyle(GoogleFonts.openSans(fontSize: 17))
+                        .make()
+                        .p12(),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
             ),
             calculatedBmi
                 ? Column(
@@ -132,106 +146,112 @@ class _HealthCheckUpState extends State<HealthCheckUp> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(30)),
-                          gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: [
-                              Colors.deepPurpleAccent[100]!,
-                              Colors.blueAccent[200]!
-                            ],
-                          )),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              "Enter Your Weight in Kg's"
-                                  .text
-                                  .textStyle(GoogleFonts.poppins(fontSize: 17))
-                                  .overflow(TextOverflow.clip)
-                                  .make(),
-                            ],
-                          ).px16().py2(),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: TextField(
-                              keyboardType: TextInputType.number,
-                              controller: _weight,
-                              enableSuggestions: false,
-                              autocorrect: false,
-                              decoration: InputDecoration(
-                                hintStyle: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                ),
-                                hintText: 'Weight in kg',
-                                border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(50),
+                    Material(
+                      elevation: 30,
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(30)),
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                Colors.deepPurpleAccent[100]!,
+                                Colors.blueAccent[200]!
+                              ],
+                            )),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                "Enter Your Weight in Kg's"
+                                    .text
+                                    .textStyle(
+                                        GoogleFonts.poppins(fontSize: 17))
+                                    .overflow(TextOverflow.clip)
+                                    .make(),
+                              ],
+                            ).px16().py2(),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                controller: _weight,
+                                enableSuggestions: false,
+                                autocorrect: false,
+                                decoration: InputDecoration(
+                                  hintStyle: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                  ),
+                                  hintText: 'Weight in kg',
+                                  border: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(50),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              "Enter Your Height in Centimeter's"
-                                  .text
-                                  .textStyle(GoogleFonts.poppins(fontSize: 17))
-                                  .overflow(TextOverflow.clip)
-                                  .make(),
-                            ],
-                          ).px16().py2(),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: TextField(
-                              controller: _height,
-                              enableSuggestions: false,
-                              keyboardType: TextInputType.number,
-                              autocorrect: false,
-                              decoration: InputDecoration(
-                                hintStyle: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                ),
-                                hintText: 'Height',
-                                border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(50),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                "Enter Your Height in Centimeter's"
+                                    .text
+                                    .textStyle(
+                                        GoogleFonts.poppins(fontSize: 17))
+                                    .overflow(TextOverflow.clip)
+                                    .make(),
+                              ],
+                            ).px16().py2(),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: TextField(
+                                controller: _height,
+                                enableSuggestions: false,
+                                keyboardType: TextInputType.number,
+                                autocorrect: false,
+                                decoration: InputDecoration(
+                                  hintStyle: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                  ),
+                                  hintText: 'Height',
+                                  border: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(50),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          ElevatedButton(
-                              onPressed: () {
-                                if (_weight.text.isEmpty ||
-                                    _height.text.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text(
-                                              "Please fill all fields !")));
-                                } else {
-                                  bmiCalculation();
-                                }
-                              },
-                              child: const Text("Calculate BMI"))
-                        ],
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  if (_weight.text.isEmpty ||
+                                      _height.text.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                "Please fill all fields !")));
+                                  } else {
+                                    bmiCalculation();
+                                  }
+                                },
+                                child: const Text("Calculate BMI"))
+                          ],
+                        ),
                       ),
                     ),
-                  ])
+                  ]),
           ],
         ),
       ),

@@ -21,19 +21,7 @@ class _LabTestState extends State<LabTest> {
           ? AppBar(
               backgroundColor: Colors.white,
               leading: IconButton(
-                  onPressed: () {
-                    // var state = labTestListBloc.state;
-                    // if (state is LoadingState ||
-                    //     state is ErrorState ||
-                    //     state is ShowSnackBar ||
-                    //     state is LoadedListState) {
-                    //   labTestListBloc
-                    //       .add(SearchTestData(''));
-                    // }
-                    // setState(() {
-                    //   isSearching = !isSearching;
-                    // });
-                  },
+                  onPressed: () {},
                   icon: const Icon(
                     Icons.arrow_back,
                     color: Colors.black,
@@ -43,14 +31,7 @@ class _LabTestState extends State<LabTest> {
                   controller: _controller,
                   enabled: isEnabled,
                   style: const TextStyle(fontSize: 16),
-                  onChanged: (String query) {
-                    // var state = labTestListBloc.state;
-                    // if (state is LoadingState ||
-                    //     state is ErrorState ||
-                    //     state is LoadedListState)
-                    //   labTestListBloc.add(SearchTestData(
-                    //       query.toLowerCase()));
-                  },
+                  onChanged: (String query) {},
                   decoration: InputDecoration(
                       hintText: 'Search Lab Test ...',
                       border: OutlineInputBorder(
@@ -60,17 +41,7 @@ class _LabTestState extends State<LabTest> {
                       suffixIcon: IconButton(
                         icon: Icon(Icons.clear),
                         color: Colors.black,
-                        onPressed: () {
-                          // var state = labTestListBloc.state;
-                          // if (state is LoadingState ||
-                          //     state is ErrorState ||
-                          //     state is LoadedListState) {
-                          //   _controller.clear();
-
-                          //   labTestListBloc
-                          //       .add(SearchTestData(''));
-                          // }
-                        },
+                        onPressed: () {},
                       ))),
             )
           : AppBar(
@@ -93,16 +64,7 @@ class _LabTestState extends State<LabTest> {
                     Icons.search,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    // var state = labTestListBloc.state;
-                    // if (state is LoadingState ||
-                    //     state is ErrorState ||
-                    //     state is LoadedListState) {
-                    //   setState(() {
-                    //     isSearching = !isSearching;
-                    //   });
-                    // }
-                  }),
+                  onPressed: () {}),
               title: const Text(
                 'Search Lab Test',
                 style: TextStyle(color: Colors.white),

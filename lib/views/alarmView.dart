@@ -1,11 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:ui';
 
+import 'package:fitness_application/views/gym/gym_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
@@ -78,11 +80,8 @@ class _AlarmViewState extends State<AlarmView> {
                             CircularWidget(
                                 label: "Steps Taken",
                                 data: "400",
-                                icon: const Icon(
-                                  Icons.directions_walk_outlined,
-                                  size: 40,
-                                  color: Colors.black,
-                                )),
+                                icon:
+                                    "assets/animations/walking-shapes-animation.json"),
                           ],
                         ).p(8),
                         const SizedBox(
@@ -97,20 +96,12 @@ class _AlarmViewState extends State<AlarmView> {
                             CircularWidget(
                               label: "Calories Burned",
                               data: "400",
-                              icon: Icon(
-                                Icons.whatshot,
-                                color: Colors.amber[700],
-                                size: 40,
-                              ),
+                              icon: "assets/animations/fire.json",
                             ).px4(),
                             CircularWidget(
                               label: "Distence walked",
                               data: "400",
-                              icon: const Icon(
-                                Icons.sports_gymnastics,
-                                color: Colors.black,
-                                size: 40,
-                              ),
+                              icon: "assets/animations/distance.json",
                             ).px4(),
                             const SizedBox(
                               width: 1,
@@ -129,17 +120,11 @@ class _AlarmViewState extends State<AlarmView> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=> ));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => GymList()));
                       },
                       child: statwidget(
-                        "Gym",
-                        Colors.amber,
-                        const Icon(
-                          Icons.fitness_center,
-                          color: Colors.black,
-                          size: 30,
-                        ),
-                      ),
+                          "Gym", Colors.amber, "assets/animations/gym.json"),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -148,14 +133,8 @@ class _AlarmViewState extends State<AlarmView> {
                             MaterialPageRoute(
                                 builder: (context) => const ToDoList()));
                       },
-                      child: statwidget(
-                          "Your Goals",
-                          Colors.blueAccent,
-                          const Icon(
-                            Icons.trending_up,
-                            color: Colors.black,
-                            size: 30,
-                          )),
+                      child: statwidget("Your Goals", Colors.blueAccent,
+                          "assets/animations/goals.json"),
                     ),
                   ],
                 ).p12(),
@@ -172,11 +151,7 @@ class _AlarmViewState extends State<AlarmView> {
                       child: statwidget(
                         "BMI",
                         Colors.green[400]!,
-                        const Icon(
-                          Icons.person,
-                          color: Colors.black,
-                          size: 30,
-                        ),
+                        "assets/animations/healthy-animation.json",
                       ),
                     ),
                     GestureDetector(
@@ -186,14 +161,8 @@ class _AlarmViewState extends State<AlarmView> {
                             MaterialPageRoute(
                                 builder: (contex) => const MySocial()));
                       },
-                      child: statwidget(
-                          "Social",
-                          Colors.redAccent,
-                          const Icon(
-                            Icons.handshake,
-                            color: Colors.black,
-                            size: 30,
-                          )),
+                      child: statwidget("Social", Colors.redAccent,
+                          "assets/animations/social.json"),
                     ),
                   ],
                 ).p12(),
@@ -210,11 +179,7 @@ class _AlarmViewState extends State<AlarmView> {
                       child: statwidget(
                         "Yoga",
                         Colors.pinkAccent[200]!,
-                        const Icon(
-                          Icons.sports_martial_arts,
-                          color: Colors.black,
-                          size: 30,
-                        ),
+                        "assets/animations/yoga.json",
                       ),
                     ),
                   ],
@@ -227,26 +192,32 @@ class _AlarmViewState extends State<AlarmView> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => LabTest()));
                   },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(40)),
-                        gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          colors: [Colors.white, Colors.black38],
-                        )),
-                    child: Center(
-                        child: "Lab Test Information"
+                  child: Card(
+                    elevation: 20,
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      child: Row(children: [
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        const Icon(
+                          Icons.local_hospital,
+                          color: Colors.indigoAccent,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        "Lab Test Information"
                             .text
                             .textStyle(GoogleFonts.poppins(
                                 fontWeight: FontWeight.bold))
-                            .make()),
-                  ).px12(),
+                            .make(),
+                      ]),
+                    ),
+                  ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 50,
                 ),
               ],
             ),
@@ -262,7 +233,7 @@ class _AlarmViewState extends State<AlarmView> {
   /////  Social Media
   ///// Yoga
 
-  Widget statwidget(String label, Color colorOFWidget, Icon icon) {
+  Widget statwidget(String label, Color colorOFWidget, String icon) {
     return Material(
       elevation: 15,
       shadowColor: Colors.black,
@@ -281,7 +252,10 @@ class _AlarmViewState extends State<AlarmView> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [icon],
+              children: [
+                Container(
+                    height: 60, width: 60, child: LottieBuilder.asset(icon))
+              ],
             ).p12(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -302,7 +276,7 @@ class _AlarmViewState extends State<AlarmView> {
 class CircularWidget extends StatefulWidget {
   String label;
   String data;
-  Icon icon;
+  String icon;
   CircularWidget({
     Key? key,
     required this.label,
@@ -340,9 +314,16 @@ class _CircularWidgetState extends State<CircularWidget> {
                 height: 100.0,
                 decoration: const BoxDecoration(
                     shape: BoxShape.circle, color: Colors.deepPurpleAccent),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [widget.icon],
+                child: Container(
+                  width: 80.0,
+                  height: 80.0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          height: 60, child: LottieBuilder.asset(widget.icon))
+                    ],
+                  ),
                 ),
               ),
             ),
